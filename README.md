@@ -1,4 +1,5 @@
 # tutors-management-microservice
+A faculty project that implements a simple microservice with Python and React, deployed flexible to Google App Engine.
 
 What info do we need to store about tutors:
 - Unique indentifier,
