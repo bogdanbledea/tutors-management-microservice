@@ -2,8 +2,10 @@
 from flask import Flask, jsonify, render_template, request
 from flask_mysqldb import MySQL
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST')
 app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')

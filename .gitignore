@@ -1,3 +1,7 @@
 # environment variable
 .env
 env_variables.yaml
+
+# frontend generated & modules
+/frontend/node_modules
+/frontend/build
