@@ -16,7 +16,7 @@ const Tutors = (props: any) => {
 
   React.useEffect(() => {
     axios.get(
-      `http://localhost:8080/tutors?access_token=${access_key}`,).then((res) => {
+      `/tutors?access_token=${access_key}`,).then((res) => {
         setTutors(res.data);
     })
   }, [refetch]);

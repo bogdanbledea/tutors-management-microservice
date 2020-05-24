@@ -52,7 +52,7 @@ const AddTutorModal = (props:any) => {
     }
       await axios({
         method: 'post',
-        url: mode === 'new' ? 'http://localhost:8080/add-tutor' : 'http://localhost:8080/update-tutor',
+        url: mode === 'new' ? '/add-tutor' : '/update-tutor',
         data: formData
       })
       .then((response) => {
@@ -86,8 +86,6 @@ const AddTutorModal = (props:any) => {
     }
   }
 
-  console.log(errors);
-
   const initialValues = {
     name: tutor ? tutor.name : '',
     phoneNumber: tutor ? tutor.phoneNumber : '',
@@ -95,8 +93,8 @@ const AddTutorModal = (props:any) => {
     office: tutor ? tutor.idOffice : undefined,
     profDegree: tutor ? tutor.idProfessionalDegree : undefined,
     departament: tutor ? tutor.idDepartament : undefined,
-    hireDate: tutor ? tutor.hireDate : undefined,
-    dateOfBirth: tutor ? tutor.dateOfBirth : undefined
+    hireDate: tutor ? tutor.hireDate : null,
+    dateOfBirth: tutor ? tutor.dateOfBirth : null
   }
 
   return (
@@ -236,53 +234,60 @@ const AddTutorModal = (props:any) => {
           </Flex>
           <Flex flexDirection="row">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Flex>
-              <Controller
-                  as={
-                    <KeyboardDatePicker
-                      margin="normal"
-                      id="date-picker-dialog"
-                      label="Hire date"
-                      format="MM/dd/yyyy"
-                      value={initialValues.hireDate}
-                      onChange={() => {}}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                  }
-                  name="hireDate"
-                  rules={{ required: true }}
-                  control={control}
-                  defaultValue={initialValues.hireDate}
+                <Flex flex={1} mr={10} flexDirection="column">
+                  <Controller
+                    as={
+                      <KeyboardDatePicker
+                        margin="normal"
+                        id="date-picker-dialog"
+                        label="Hire date"
+                        error={errors.hireDate}
+                        format="MM/dd/yyyy"
+                        value={initialValues.hireDate}
+                        onChange={() => {}}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }
+                      }
+                      />
+                    }
+                    name="hireDate"
+                    rules={{ required: true }}
+                    control={control}
+                    defaultValue={initialValues.hireDate}
                   />
-              </Flex>
-              <Flex>
-                <Controller
-                  as={
-                    <KeyboardDatePicker
-                      margin="normal"
-                      id="date-picker-dialog"
-                      label="Date of Birth"
-                      format="MM/dd/yyyy"
-                      value={initialValues.dateOfBirth}
-                      onChange={() => {}}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date',
-                      }}
-                    />
-                  }
-                  name="dateOfBirth"
-                  rules={{ required: true }}
-                  control={control}
-                  defaultValue={initialValues.dateOfBirth}
-                />
+                  {errors.hireDate && <ErrorMessage>{getErrorMessage(errors.hireDate)}</ErrorMessage>}
+                </Flex>
+                <Flex flex={1} flexDirection="column">
+                  <Controller
+                    as={
+                      <KeyboardDatePicker
+                        margin="normal"
+                        error={errors.dateOfBirth}
+                        id="date-picker-dialog"
+                        label="Date of Birth"
+                        format="MM/dd/yyyy"
+                        value={initialValues.dateOfBirth}
+                        onChange={() => {}}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                    }
+                    name="dateOfBirth"
+                    rules={{ required: true }}
+                    control={control}
+                    defaultValue={initialValues.dateOfBirth}
+                  />
+                  {errors.dateOfBirth && <ErrorMessage>{getErrorMessage(errors.dateOfBirth)}</ErrorMessage>}
               </Flex>
             </MuiPickersUtilsProvider>
           </Flex>
-          <Button variant="contained" color="primary" type="submit">
-            {mode === 'new' ? 'Add tutor' : 'Save tutor'}
-          </Button>
+          <Flex mt={10}>
+            <Button variant="contained" color="primary" type="submit">
+              {mode === 'new' ? 'Add tutor' : 'Save tutor'}
+            </Button>
+          </Flex>
         </form>
       </Flex>
     </Modal>
