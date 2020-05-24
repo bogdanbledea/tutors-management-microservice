@@ -1,14 +1,20 @@
 import React from 'react';
 import './App.css';
-import axios from 'axios';
 import Tutors from './components/Tutors/Tutors';
 
+export type Tutor = {
+  idTutor: number,
+  name: string,
+  professionalDegree: string,
+  officeName: string,
+  hireDate: string,
+  dateOfBirth: string,
+  email: string,
+  phoneNumber: string,
+  departamentName: string
+}
+
 function App() {
-  const access_key = process.env.REACT_APP_API_KEY;
-  axios.get(`/tutors?access_token=${access_key}`)
-  .then(res => {
-    // console.log(res);
-  })
   return (
     <div className="App">
       <Tutors />
