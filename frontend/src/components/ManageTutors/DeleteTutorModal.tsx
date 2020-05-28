@@ -25,7 +25,7 @@ const DeleteTutorModal = (props:any) => {
   const submitForm = async () => {
     await axios({
       method: 'post',
-      url: 'http://localhost:8080/delete-tutor',
+      url: '/delete-tutor',
       data: formData
     })
     .then((response) => {
